@@ -8,7 +8,7 @@ import matter from 'gray-matter';
 import { marked } from 'marked';
 import { env } from 'process';
 
-const POSTS_DIR = path.resolve(import.meta.env.PUBLIC_CONTENT_DIR); // dein lokaler Ordner
+const POSTS_DIR = path.resolve("/app/content/blog"); // dein lokaler Ordner
 
 const { slug } = Astro.params;
 
