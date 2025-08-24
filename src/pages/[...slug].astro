@@ -1,0 +1,45 @@
+---
+export const prerender = false; // wichtig: nicht vorab bauen
+
+import BlogPost from '../layouts/BlogPost.astro';
+import fs from 'fs/promises';
+import path from 'path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import { env } from 'process';
+
+const POSTS_DIR = path.resolve(import.meta.env.CONTENT_DIR); // dein lokaler Ordner
+
+const { slug } = Astro.params;
+
+const safe = String(slug).replace(/[^a-zA-Z0-9/_-]/g, ''); // Slug absichern (keine Pfad-Traversal)
+const filePath = path.join(POSTS_DIR, `${safe}.md`);
+
+
+let raw = '';
+try {
+  console.log("path", filePath)
+  raw = await fs.readFile(filePath, 'utf-8');
+} catch (e){
+	console.log(e);
+  return Astro.redirect('/404');
+}
+
+const { data, content } = matter(raw);
+console.log(data, "-" , data.pubDate)
+
+// Markdown → HTML rendern
+const html = marked.parse(content);
+
+// Metadaten-Fallbacks
+const meta = {
+  title: data?.title ?? safe.split('/').pop(),
+  pubDate: data?.pubDate ? new Date(data.pubDate) : new Date(),
+  heroImage: data?.heroImage,
+  description: data?.description
+};
+---
+
+<BlogPost {...meta}>
+  <Fragment set:html={html} />
+</BlogPost>
