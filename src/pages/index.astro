@@ -13,8 +13,8 @@ import matter from "gray-matter";
 import { Image } from "astro:assets";
 
 async function getAllPosts() {
-	console.log(import.meta.env.CONTENT_DIR)
-	const POSTS_DIR = path.resolve(import.meta.env.CONTENT_DIR);
+	console.log(import.meta.env.PUBLIC_CONTENT_DIR)
+	const POSTS_DIR = path.resolve(import.meta.env.PUBLIC_CONTENT_DIR);
 	const files = await fs.readdir(POSTS_DIR);
 
 	const posts = await Promise.all(
