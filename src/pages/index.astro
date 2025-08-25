@@ -51,6 +51,7 @@ console.log(posts);
 		<style>
 			section {
 				width: 960px;
+				margin: 0 auto;
 			}
 			ul {
 				display: flex;
@@ -127,31 +128,33 @@ console.log(posts);
 		</style>
 	</head>
 	<body>
+		<main>
 		<Header />
-		<section>
-			<ul>
-				{
-					posts.map((post) => (
-						<li>
-							<a href={`/${post.slug}/`}>
-								{post.heroImage && (
-									<Image
-										width={720}
-										height={360}
-										src={"/images/"+ post.heroImage}
-										alt=""
-									/>
-								)}
-								<h4 class="title">{post.title}</h4>
-								<p class="date">
-									<FormattedDate date={post.pubDate} />
-								</p>
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</section>
+			<section>
+				<ul>
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/${post.slug}/`}>
+									{post.heroImage && (
+										<Image
+											width={720}
+											height={360}
+											src={"/images/"+ post.heroImage}
+											alt=""
+										/>
+									)}
+									<h4 class="title">{post.title}</h4>
+									<p class="date">
+										<FormattedDate date={post.pubDate} />
+									</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
 		<Footer />
 	</body>
 </html>
