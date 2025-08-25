@@ -18,7 +18,7 @@ async function getAllPosts() {
 
 	const posts = await Promise.all(
 		files
-			.filter((file) => (file.endsWith(".md") || file.endsWith(".mdx")) && !file.startsWith("."))
+			.filter((file) => (file.endsWith(".md") || file.endsWith(".mdx")) && !file.startsWith(".") && !file.startsWith("_"))
 			.map(async (file) => {
 				const slug = file.replace(/\.(md|mdx)$/, "");
 				const filePath = path.join(POSTS_DIR, file);
